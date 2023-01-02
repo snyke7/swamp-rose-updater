@@ -26,7 +26,9 @@ export PATH=$PATH:/home/username/.cargo/bin
 before proceeding.
 
 ## Usage
-If you are in a hurry and fully trust me, **navigate to your ROSE source folder** and run:
+If you are in a hurry and fully trust me (really, people can do [nasty](https://www.bleepingcomputer.com/news/security/dont-copy-paste-commands-from-webpages-you-can-get-hacked/) things with `curl | bash`).
+
+**Navigate to your ROSE source folder** and run:
 ```
 curl -s 'https://raw.githubusercontent.com/snyke7/swamp-rose-updater/main/swamp_rose_updater' | bash
 ```
