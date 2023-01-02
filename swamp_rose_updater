@@ -1,0 +1,26 @@
+#!/bin/bash
+
+MANIFEST_URL='https://updates.roseonlinegame.com'
+
+update_lines=$(curl -L "$MANIFEST_URL"'/manifest.json' | jq -r '.files | [ .[] | [ .[] ] | [ .[0], .[1], .[3] ] ] | .[] | @sh')
+
+if [ ! -d "rose-test-folder" ] ; then
+   echo "Copying rose folder to experiment on..."
+   cp -r rose-source-folder rose-test-folder
+fi
+
+cd rose-test-folder
+
+while read -r update_line; do
+   declare -a the_array="($update_line)"
+   path_tail=${the_array[0]}
+   filename=${the_array[1]}
+   filesize=${the_array[2]}
+   archive_url="$MANIFEST_URL""/$path_tail"
+   bita clone --seed-output "$archive_url" "$filename"
+#   echo "$MANIFEST_URL""/$path_tail"
+# bita clone --seed-output https://updates.roseonlinegame.com/data/data.idx.cba data.idx
+done <<< "$update_lines"
+
+
+
