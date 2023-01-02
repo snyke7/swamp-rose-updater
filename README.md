@@ -4,11 +4,11 @@ Custom updater for ROSE Online that works on Linux.
 
 ## Requirements
 
-You need access to the [bita](https://github.com/oll3/bita) library to use ROSE's update archives.
+You need access to the [bita](https://github.com/oll3/bita) library to use ROSE's update archives, and [jq](https://stedolan.github.io/jq/) for parsing the updates.
 [bita](https://github.com/oll3/bita) is a Rust library, so you need access to Rust's `cargo` command for package management.
-On apt-based systems, you can install `cargo` with
+On apt-based systems, you can install `cargo` and `jq` with
 ```
-sudo apt install cargo
+sudo apt install cargo jq
 ```
 Once you have access to cargo, use the following command to get access to the `bita` command.
 ```
@@ -18,12 +18,13 @@ Now make sure that you have access to the `bita` command in your current shell.
 ```
 bita --version
 ```
-which should display something like `bita 0.10.0`. In my case, the `bita` executable is found in `/home/username/.cargo/bin`, 
+which should display something like `bita 0.10.0`. 
+If this fails, `bita` is not accessible in your `PATH` variable. In my case, the `bita` executable is found in `/home/username/.cargo/bin`, 
 and I need to run 
 ```
 export PATH=$PATH:/home/username/.cargo/bin
 ```
-before proceeding.
+to make `bita --version` work correctly.
 
 ## Usage
 If you are in a hurry and fully trust me (really, people can do [nasty](https://www.bleepingcomputer.com/news/security/dont-copy-paste-commands-from-webpages-you-can-get-hacked/) things with `curl | bash`).
