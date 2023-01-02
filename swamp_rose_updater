@@ -2,7 +2,15 @@
 
 MANIFEST_URL='https://updates.roseonlinegame.com'
 
-update_lines=$(curl -L "$MANIFEST_URL"'/manifest.json' | jq -r '.files | [ .[] | [ .[] ] | [ .[0], .[1], .[3] ] ] | .[] | @sh')
+update_lines=$(curl --silent -L "$MANIFEST_URL"'/manifest.json' | jq -r '.files | [ .[] | [ .[] ] | [ .[0], .[1], ( .[2] | @sh ), .[3] ] ] | .[] | @sh')
+
+to_hash_str () {
+   the_array=("$@")
+   for i in "${the_array[@]}" ; do
+      printf "%02x" "$i"
+   done
+   printf '\n'
+}
 
 if [ ! -d "rose-test-folder" ] ; then
    echo "Copying rose folder to experiment on..."
@@ -15,11 +23,15 @@ while read -r update_line; do
    declare -a the_array="($update_line)"
    path_tail=${the_array[0]}
    filename=${the_array[1]}
-   filesize=${the_array[2]}
+   declare -a almost_hash="(${the_array[2]})"
+   the_hash=$(to_hash_str "${almost_hash[@]}")
+   filesize=${the_array[3]}
    archive_url="$MANIFEST_URL""/$path_tail"
-   bita clone --seed-output "$archive_url" "$filename"
-#   echo "$MANIFEST_URL""/$path_tail"
-# bita clone --seed-output https://updates.roseonlinegame.com/data/data.idx.cba data.idx
+   if ! echo "$the_hash $(pwd)/$filename" | b2sum --check --status - ; then
+      echo "Updating $filename ..."
+      bita clone --seed-output "$archive_url" "$filename"
+      echo
+   fi
 done <<< "$update_lines"
 
 
