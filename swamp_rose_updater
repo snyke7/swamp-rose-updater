@@ -12,17 +12,14 @@ to_hash_str () {
    printf '\n'
 }
 
-if [ ! -d "rose-test-folder" ] ; then
-   echo "Copying rose folder to experiment on..."
-   cp -r rose-source-folder rose-test-folder
-fi
-
-cd rose-test-folder
-
 while read -r update_line; do
    declare -a the_array="($update_line)"
    path_tail=${the_array[0]}
    filename=${the_array[1]}
+   if [ ! -f "$filename" ] ; then
+      echo "Could not find $filename, are you running Swamp ROSE updater in the ROSE source folder?"
+      exit 1
+   fi
    declare -a almost_hash="(${the_array[2]})"
    the_hash=$(to_hash_str "${almost_hash[@]}")
    filesize=${the_array[3]}

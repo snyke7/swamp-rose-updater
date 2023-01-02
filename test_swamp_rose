@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -d "rose-test-folder" ] ; then
+   echo "Copying rose folder to experiment on..."
+   cp -r rose-source-folder rose-test-folder
+fi
+
+cd rose-test-folder
+
+../swamp_rose_updater
