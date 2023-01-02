@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! type -pP bita > /dev/null ; then
+   echo "Could not find bita! Please see the README."
+   exit 2
+fi
+
 MANIFEST_URL='https://updates.roseonlinegame.com'
 
 update_lines=$(curl --silent -L "$MANIFEST_URL"'/manifest.json' | jq -r '.files | [ .[] | [ .[] ] | [ .[0], .[1], ( .[2] | @sh ), .[3] ] ] | .[] | @sh')
@@ -26,8 +31,13 @@ while read -r update_line; do
    archive_url="$MANIFEST_URL""/$path_tail"
    if ! echo "$the_hash $(pwd)/$filename" | b2sum --check --status - ; then
       echo "Updating $filename ..."
-      bita clone --seed-output "$archive_url" "$filename"
-      echo
+      if bita clone --seed-output "$archive_url" "$filename" ; then
+         echo "Succesfully updated $filename"
+         echo
+      else
+         echo "Bita failed!"
+         exit $?
+      fi
    fi
 done <<< "$update_lines"
 
