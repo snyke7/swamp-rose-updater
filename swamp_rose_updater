@@ -1,9 +1,16 @@
 #!/bin/bash
+set -eo pipefail
 
 if ! type -pP bita > /dev/null ; then
    echo "Could not find bita! Please see the README."
    exit 2
 fi
+
+if ! type -pP jq > /dev/null ; then
+   echo "Could not find jq! Please see the README."
+   exit 2
+fi
+
 
 MANIFEST_URL='https://updates.roseonlinegame.com'
 
@@ -41,5 +48,6 @@ while read -r update_line; do
    fi
 done <<< "$update_lines"
 
+echo "ROSE Online is up to date."
 
 
