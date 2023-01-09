@@ -25,7 +25,7 @@ to_hash_str () {
 }
 
 if [ ! -f "rose.vfs" ] ; then
-   echo "Could not find rose.vfs, are you running Swamp ROSE updater in the ROSE source folder?"
+   echo "Could not find rose.vfs, are you running Swamp ROSE updater in the ROSE source folder? Current directory is: $(pwd)"
    exit 1
 fi
 

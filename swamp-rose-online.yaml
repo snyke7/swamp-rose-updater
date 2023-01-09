@@ -1,0 +1,43 @@
+name: ROSE Online
+game_slug: rose-online
+version: Swamp ROSE Installer
+slug: swamp-rose-installer
+runner: wine
+
+script:
+  game:
+    exe: $GAMEDIR/drive_c/Program Files/ROSE Online/trose.exe
+    args: --init --server connect.roseonlinegame.com
+    prefix: $GAMEDIR
+
+  files:
+  - installer: N/A:Please select the installer
+# https://f002.backblazeb2.com/file/rose-public/RoseOnlineSetup.exe
+  - updater: N/A:Please select the updater
+# https://raw.githubusercontent.com/snyke7/swamp-rose-updater/main/swamp_rose_updater
+
+  installer:
+  - chmodx: updater
+  - move:
+      src: updater
+      dst: $GAMEDIR/swamp_rose_updater
+  - write_file:
+      file: $GAMEDIR/update_this_rose
+      content: |
+        #!/bin/sh
+        path="$(dirname "$(realpath "$0")")"
+        cd "$path/drive_c/Program Files/ROSE Online/"
+        "$path"/swamp_rose_updater
+  
+  
+
+  - chmodx: $GAMEDIR/update_this_rose
+  - task:
+      executable: installer
+      name: wineexec
+      prefix: $GAMEDIR
+      args: /SILENT /ALLUSERS /SP-
+  - execute:
+      file: $GAMEDIR/update_this_rose
+  system:
+    manual_command: $GAMEDIR/update_this_rose
