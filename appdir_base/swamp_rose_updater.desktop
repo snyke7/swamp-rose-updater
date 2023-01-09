@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=swamp_rose_updater
+Exec=swamp_rose_updater
+Icon=icon
+Categories=Utility;
+Terminal=true

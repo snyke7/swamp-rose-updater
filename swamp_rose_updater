@@ -24,21 +24,22 @@ to_hash_str () {
    printf '\n'
 }
 
+if [ ! -f "rose.vfs" ] ; then
+   echo "Could not find rose.vfs, are you running Swamp ROSE updater in the ROSE source folder?"
+   exit 1
+fi
+
 while read -r update_line; do
    declare -a the_array="($update_line)"
    path_tail=${the_array[0]}
    filename=${the_array[1]}
-   if [ ! -f "$filename" ] ; then
-      echo "Could not find $filename, are you running Swamp ROSE updater in the ROSE source folder?"
-      exit 1
-   fi
    declare -a almost_hash="(${the_array[2]})"
    the_hash=$(to_hash_str "${almost_hash[@]}")
    filesize=${the_array[3]}
    archive_url="$MANIFEST_URL""/$path_tail"
    if ! echo "$the_hash $(pwd)/$filename" | b2sum --check --status - ; then
       echo "Updating $filename ..."
-      if bita clone --seed-output "$archive_url" "$filename" ; then
+      if bita clone --seed-output "$archive_url" "$(pwd)/$filename" ; then
          echo "Succesfully updated $filename"
          echo
       else

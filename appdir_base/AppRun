@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "Starting updater in appimage"
+HERE="$(dirname "$(readlink -f "${0}")")"
+export PATH="$PATH:${HERE}/usr/bin/"
+exec "${HERE}/usr/bin/swamp_rose_updater" "$@"
