@@ -11,10 +11,8 @@ script:
     prefix: $GAMEDIR
 
   files:
-  - installer: N/A:Please select the installer
-# https://f002.backblazeb2.com/file/rose-public/RoseOnlineSetup.exe
-  - updater: N/A:Please select the updater
-# https://raw.githubusercontent.com/snyke7/swamp-rose-updater/main/swamp_rose_updater
+  - installer: https://f002.backblazeb2.com/file/rose-public/RoseOnlineSetup.exe
+  - updater: https://github.com/snyke7/swamp-rose-updater/releases/download/0.1/swamp_rose_updater
 
   installer:
   - chmodx: updater
