@@ -29,6 +29,11 @@ if [ ! -f "rose.vfs" ] ; then
    exit 1
 fi
 
+files_to_skip=()
+if [ -f "no_update_list.txt" ] ; then
+   readarray -t files_to_skip <"no_update_list.txt"
+fi
+
 while read -r update_line; do
    declare -a the_array="($update_line)"
    path_tail=${the_array[0]}
@@ -37,6 +42,13 @@ while read -r update_line; do
    the_hash=$(to_hash_str "${almost_hash[@]}")
    filesize=${the_array[3]}
    archive_url="$MANIFEST_URL""/$path_tail"
+   if [[ " ${files_to_skip[*]} " == *"$filename"* ]] ; then
+      echo "Not updating $filename by explicit request."
+      continue
+   fi
+   # Alternatively, one could parse the regular output of b2sum for all files at once.
+   # The performance gain would be about 0.5 seconds on 5 seconds total, while
+   # complicating the implementation. We therefore keep it simple, and call b2sum multiple times
    if ! echo "$the_hash $(pwd)/$filename" | b2sum --check --status - ; then
       echo "Updating $filename ..."
       if bita clone --seed-output "$archive_url" "$(pwd)/$filename" ; then
