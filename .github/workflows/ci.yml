@@ -31,10 +31,11 @@ jobs:
          name: appimagetool
          url: https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
 
-      - name: Install cargo-appimagetool
+      - name: Install cargo-appimage
         uses: actions-rs/cargo@v1
         with:
-          command: install appimagetool
+          command: install
+          args: cargo-appimage
 
       - name: build
         run: make build/output/swamp_rose_updater
