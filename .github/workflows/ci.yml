@@ -42,5 +42,10 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "<>"
 
+      - name: Install FUSE to run appimagetool
+        run: |
+          sudo add-apt-repository universe
+          sudo apt install libfuse2
+
       - name: build
         run: make build/output/swamp_rose_updater
