@@ -57,7 +57,7 @@ build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq: build/output/jq
 
 linux_updater: build/output/linux/swamp_rose_updater
 
-mac_updater: build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita
+macos_updater: build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita
 
 clean:
 	@echo CLEAN
