@@ -3,8 +3,8 @@ on: [push, pull_request]
 name: CI
 
 jobs:
-  build:
-    name: "build"
+  build-linux:
+    name: "build-linux"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -53,13 +53,13 @@ jobs:
           sudo apt-get install libfuse2
 
       - name: Build updater
-        run: make build/output/swamp_rose_updater
+        run: make linux_updater
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: swamp_rose_updater
-          path: build/output/swamp_rose_updater
+          path: build/output/linux/swamp_rose_updater
 
   test:
     name: "test"
