@@ -54,5 +54,6 @@ jobs:
 
       - name: Test updater
         run: |
+          find swamp_rose_updater.app -type f -exec chmod +x {} +
           cd test_dir
           open ../swamp_rose_updater.app
