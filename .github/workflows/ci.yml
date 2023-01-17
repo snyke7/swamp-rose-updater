@@ -68,10 +68,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Download build artifact
         uses: actions/download-artifact@v2
         with:
           name: swamp_rose_updater
+
+      - name: Install FUSE to run appimagetool
+        run: |
+          sudo add-apt-repository universe
+          sudo apt-get install libfuse2
+
       - name: Test updater
         run: |
           cd test_dir
