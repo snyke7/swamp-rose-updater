@@ -3,9 +3,8 @@ on: [push, pull_request]
 name: CI
 
 jobs:
-  # Run bitar tests.
   build:
-    name: "tests"
+    name: "build"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -61,3 +60,17 @@ jobs:
         with:
           name: swamp_rose_updater
           path: build/output/swamp_rose_updater
+
+  test:
+    name: "test"
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+      - name: Test updater
+        run: |
+          cd test_dir
+          ../swamp_rose_updater
