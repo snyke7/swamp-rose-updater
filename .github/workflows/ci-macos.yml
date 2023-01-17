@@ -38,3 +38,23 @@ jobs:
           name: swamp_rose_updater
           path: build/output/macos/swamp_rose_updater.app/
 
+  test-macos:
+    name: "test-macos"
+    needs:
+      - build-macos
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: swamp_rose_updater.app
+
+      - name: Print folder structure
+        run: ls -R
+
+      - name: Test updater
+        run: |
+          cd test_dir
+          open ../swamp_rose_updater.app
