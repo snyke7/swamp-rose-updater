@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: CI
+name: "CI Linux"
 
 jobs:
   build-linux:
@@ -61,10 +61,10 @@ jobs:
           name: swamp_rose_updater
           path: build/output/linux/swamp_rose_updater
 
-  test:
-    name: "test"
+  test-linux:
+    name: "test-linux"
     needs:
-      - build
+      - build-linux
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

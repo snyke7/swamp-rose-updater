@@ -1,0 +1,40 @@
+on: [push, pull_request]
+
+name: "CI MacOS"
+
+jobs:
+  build-macos:
+    name: "build-macos"
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        rust:
+          - stable
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          override: true
+
+      - name: Install protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup git config to apply patch
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "<>"
+
+      - name: Build updater
+        run: make macos_updater
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: swamp_rose_updater
+          path: build/output/macos/swamp_rose_updater.app/
+
