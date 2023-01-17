@@ -15,6 +15,11 @@ build/output/jq_linux:
 	@wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O $@
 	@chmod +x $@
 
+build/output/jq_macos_amd64:
+	@mkdir -p build/output
+	@wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-osx-amd64 -O $@
+	@chmod +x $@
+
 APPDIR_BASE_FILES = $(wildcard appdir_base/*)
 APPDIR_BUILD_FILES = $(patsubst appdir_base/%,build/AppDir/%, $(APPDIR_BASE_FILES))
 
@@ -44,15 +49,19 @@ build/output/linux/swamp_rose_updater: build/output/linux/swamp_rose_updater-$(V
 	@cp $< $@
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater: macbase.app/swamp_rose_updater
+	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/
 	@cp $< $@
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater: swamp_rose_updater
+	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
 	@cp $< $@
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita: build/output/bita_macos_amd64
+	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
 	@cp $< $@
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq: build/output/jq_macos_amd64
+	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
 	@cp $< $@
 
 linux_updater: build/output/linux/swamp_rose_updater
