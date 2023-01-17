@@ -51,7 +51,13 @@ jobs:
       - name: Install FUSE to run appimagetool
         run: |
           sudo add-apt-repository universe
-          sudo apt install libfuse2
+          sudo apt-get install libfuse2
 
-      - name: build
+      - name: Build updater
         run: make build/output/swamp_rose_updater
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: swamp_rose_updater
+          path: build/output/swamp_rose_updater
