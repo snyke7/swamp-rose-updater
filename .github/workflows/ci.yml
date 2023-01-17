@@ -31,6 +31,12 @@ jobs:
          name: appimagetool
          url: https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
 
+      - name: Download linuxdeploy
+        uses: engineerd/configurator@v0.0.9
+        with:
+         name: linuxdeploy
+         url: https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+
       - name: Install cargo-appimage
         uses: actions-rs/cargo@v1
         with:
