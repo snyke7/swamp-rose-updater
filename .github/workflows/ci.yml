@@ -1,0 +1,40 @@
+on: [push, pull_request]
+
+name: CI
+
+jobs:
+  # Run bitar tests.
+  build:
+    name: "tests"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust:
+          - stable
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          override: true
+
+      - name: Install protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download appimagetool
+        uses: engineerd/configurator@v0.0.9
+        with:
+         name: appimagetool
+         url: https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+
+      - name: Install cargo-appimagetool
+        uses: actions-rs/cargo@v1
+        with:
+          command: install appimagetool
+
+      - name: build
+          run: make build/output/swamp_rose_updater
