@@ -39,8 +39,8 @@ jobs:
 
       - name: Setup git config to apply patch
         run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "<>"
 
       - name: build
         run: make build/output/swamp_rose_updater
