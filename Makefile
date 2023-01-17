@@ -43,7 +43,7 @@ build/output/linux/swamp_rose_updater-$(VERSION)-x86_64.AppImage: $(APPDIR_BUILD
 build/output/linux/swamp_rose_updater: build/output/linux/swamp_rose_updater-$(VERSION)-x86_64.AppImage
 	@cp $< $@
 
-build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater: macdir.app/swamp_rose_updater
+build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater: macbase.app/swamp_rose_updater
 	@cp $< $@
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater: swamp_rose_updater
