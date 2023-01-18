@@ -38,15 +38,10 @@ jobs:
           name: swamp_rose_updater.app
           path: build/output/macos/swamp_rose_updater.app/
 
-      - name: Fetch create-dmg
-        uses: engineerd/configurator@v0.0.9
-        with:
-         name: create-dmg
-         url: https://raw.githubusercontent.com/create-dmg/create-dmg/master/create-dmg
-
       - name: Create dmg
         run: |
-          create-dmg swamp_rose_updater.dmg build/output/macos/swamp_rose_updater.app
+          git clone https://github.com/create-dmg/create-dmg.git
+          ./create-dmg/create-dmg swamp_rose_updater.dmg build/output/macos/swamp_rose_updater.app
 
       - name: Upload .dmg artifact
         uses: actions/upload-artifact@v3
