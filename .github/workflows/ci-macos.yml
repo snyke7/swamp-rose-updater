@@ -61,6 +61,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: swamp_rose_updater.app
+          path: swamp_rose_updater.app/
 
       - name: Print folder structure
         run: ls -R
