@@ -52,6 +52,10 @@ build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater: mac
 	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/
 	@cp $< $@
 
+build/output/macos/swamp_rose_updater.app/Contents/Info.plist: macbase.app/Info.plist
+	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/
+	@cp $< $@
+
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater: swamp_rose_updater
 	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
 	@cp $< $@
@@ -66,7 +70,7 @@ build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq: build/output/jq
 
 linux_updater: build/output/linux/swamp_rose_updater
 
-macos_updater: build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita
+macos_updater: build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita build/output/macos/swamp_rose_updater.app/Contents/Info.plist
 
 clean:
 	@echo CLEAN

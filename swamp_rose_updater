@@ -31,7 +31,7 @@ fi
 
 files_to_skip=()
 if [ -f "no_update_list.txt" ] ; then
-   readarray -t files_to_skip <"no_update_list.txt"
+   declare -a files_to_skip=($(cat "no_update_list.txt"))
 fi
 
 while read -r update_line; do

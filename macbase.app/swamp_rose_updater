@@ -1,4 +1,4 @@
 #!/bin/sh
-HERE="$(dirname "$(readlink -f "${0}")")"
+HERE="$(cd "$(dirname "$0")"; pwd -P)"
 export PATH="${HERE}/bin:$PATH"
 exec "${HERE}/bin/swamp_rose_updater" "$@"
