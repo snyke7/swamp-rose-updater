@@ -65,5 +65,5 @@ jobs:
           pwd
           ls -l test_dir
           open -a $(pwd)/swamp_rose_updater.app $(pwd)/test_dir --stdout outfile --stderr outfile
-          tail -f outfile
+          sleep 10
           ls -l test_dir
