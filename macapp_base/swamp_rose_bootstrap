@@ -1,4 +1,11 @@
 #!/bin/sh
 HERE="$(cd "$(dirname "$0")"; pwd -P)"
 export PATH="${HERE}:$PATH"
-exec "${HERE}/swamp_rose_updater" "$@"
+echo "$@"
+if [ -d "$1" ] ; then
+  cd "$1"
+else
+  cd $(dirname "$1")
+fi
+pwd
+exec "${HERE}/swamp_rose_updater"

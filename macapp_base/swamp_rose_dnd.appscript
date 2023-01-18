@@ -1,10 +1,15 @@
-on open files
+on open thefiles
    set scriptpath to the quoted form of the POSIX path of (path to me as text)
-   repeat with file in files
-      set filename to the quoted form of the POSIX path of file
+   repeat with f in thefiles
+      set filename to the quoted form of the POSIX path of f
       tell application "Terminal"
          activate
-         do script "echo " & filename & "; echo " & scriptpath & "; sleep 10"
+         do script scriptpath & "/Contents/MacOS/bin/swamp_rose_bootstrap " & filename
       end tell
+      return
    end repeat
 end open
+
+on run
+   tell me to open {choose folder}
+end run

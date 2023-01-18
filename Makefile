@@ -49,13 +49,14 @@ build/output/linux/swamp_rose_updater: build/output/linux/swamp_rose_updater-$(V
 	@cp $< $@
 
 build/output/macos/swamp_rose_updater.app/Contents/Info.plist: macapp_base/swamp_rose_dnd.appscript
+	@mkdir -p build/output/macos/
 	@osacompile -o build/output/macos/swamp_rose_updater.app $<
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater: swamp_rose_updater
 	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
 	@cp $< $@
 
-build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap: macapp_base/swamp_rose_updater
+build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap: macapp_base/swamp_rose_bootstrap
 	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
 	@cp $< $@
 
