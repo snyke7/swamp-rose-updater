@@ -48,15 +48,14 @@ build/output/linux/swamp_rose_updater-$(VERSION)-x86_64.AppImage: $(APPDIR_BUILD
 build/output/linux/swamp_rose_updater: build/output/linux/swamp_rose_updater-$(VERSION)-x86_64.AppImage
 	@cp $< $@
 
-build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater: macbase.app/swamp_rose_updater
-	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/
-	@cp $< $@
-
-build/output/macos/swamp_rose_updater.app/Contents/Info.plist: macbase.app/Info.plist
-	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/
-	@cp $< $@
+build/output/macos/swamp_rose_updater.app/Contents/Info.plist: macapp_base/swamp_rose_dnd.appscript
+	@osacompile -o build/output/macos/swamp_rose_updater.app $<
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater: swamp_rose_updater
+	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
+	@cp $< $@
+
+build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap: macapp_base/swamp_rose_updater
 	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
 	@cp $< $@
 
@@ -70,7 +69,7 @@ build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq: build/output/jq
 
 linux_updater: build/output/linux/swamp_rose_updater
 
-macos_updater: build/output/macos/swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita build/output/macos/swamp_rose_updater.app/Contents/Info.plist
+macos_updater: build/output/macos/swamp_rose_updater.app/Contents/Info.plist build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita
 
 clean:
 	@echo CLEAN

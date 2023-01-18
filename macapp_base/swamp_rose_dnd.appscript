@@ -1,0 +1,10 @@
+on open files
+   set scriptpath to the quoted form of the POSIX path of (path to me as text)
+   repeat with file in files
+      set filename to the quoted form of the POSIX path of file
+      tell application "Terminal"
+         activate
+         do script "echo " & filename & "; echo " & scriptpath & "; sleep 10"
+      end tell
+   end repeat
+end open
