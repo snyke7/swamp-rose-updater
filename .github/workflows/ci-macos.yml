@@ -58,12 +58,12 @@ jobs:
           cd test_dir
           ../swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap
           cd -
-          git clean -df
+          git clean -df test_dir
 
       - name: Test updater app
         run: |
           pwd
-          ls -l
-          open -a $(pwd)/build/output/macos/swamp_rose_updater.app $(pwd)/test_dir --stdout outfile --stderr
-          sleep 5
-          ls -l
+          ls -l test_dir
+          open -a $(pwd)/swamp_rose_updater.app $(pwd)/test_dir --stdout outfile --stderr outfile
+          tail -f outfile
+          ls -l test_dir
