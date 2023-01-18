@@ -52,8 +52,8 @@ jobs:
       - name: Print folder structure
         run: ls -R
 
-      - name: Test updater
+      - name: Test updater command
         run: |
           find swamp_rose_updater.app -type f -exec chmod +x {} +
           cd test_dir
-          open ../swamp_rose_updater.app
+          ../swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater
