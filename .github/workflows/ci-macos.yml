@@ -57,3 +57,13 @@ jobs:
           find swamp_rose_updater.app -type f -exec chmod +x {} +
           cd test_dir
           ../swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap
+          cd -
+          git clean -df
+
+      - name: Test updater app
+        run: |
+          pwd
+          ls -l
+          open -a $(pwd)/build/output/macos/swamp_rose_updater.app $(pwd)/test_dir --stdout outfile --stderr
+          sleep 5
+          ls -l
