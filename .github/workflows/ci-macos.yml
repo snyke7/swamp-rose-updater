@@ -32,11 +32,27 @@ jobs:
       - name: Build updater
         run: make macos_updater
 
-      - name: Upload artifact
+      - name: Upload .app artifact
         uses: actions/upload-artifact@v3
         with:
           name: swamp_rose_updater.app
           path: build/output/macos/swamp_rose_updater.app/
+
+      - name: Fetch create-dmg
+        uses: engineerd/configurator@v0.0.9
+        with:
+         name: create-dmg
+         url: https://raw.githubusercontent.com/create-dmg/create-dmg/master/create-dmg
+
+      - name: Create dmg
+        run: |
+          create-dmg swamp_rose_updater.dmg build/output/macos/swamp_rose_updater.app
+
+      - name: Upload .dmg artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: swamp_rose_updater.dmg
+          path: swamp_rose_updater.dmg
 
   test-macos:
     name: "test-macos"
@@ -46,8 +62,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download build artifact
+      - name: Download .app build artifact
         uses: actions/download-artifact@v3
+        with:
+          name: swamp_rose_updater.app
 
       - name: Print folder structure
         run: ls -R
@@ -64,6 +82,8 @@ jobs:
         run: |
           pwd
           ls -l test_dir
-          open -a $(pwd)/swamp_rose_updater.app $(pwd)/test_dir --stdout outfile --stderr outfile
+          open -a $(pwd)/swamp_rose_updater.app $(pwd)/test_dir --stdout outfile --stderr errfile
           sleep 10
+          cat outfile
+          cat errfile
           ls -l test_dir
