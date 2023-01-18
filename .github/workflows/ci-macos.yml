@@ -56,4 +56,4 @@ jobs:
         run: |
           find swamp_rose_updater.app -type f -exec chmod +x {} +
           cd test_dir
-          ../swamp_rose_updater.app/Contents/MacOS/swamp_rose_updater
+          ../swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap
