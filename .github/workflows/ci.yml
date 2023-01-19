@@ -169,6 +169,10 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Inspect directory after downloading artifacts
         run: ls -alFR
+      - name: Install FUSE to run appimagetool
+        run: |
+          sudo add-apt-repository universe
+          sudo apt-get install libfuse2
       - name: Create release and upload artifacts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
