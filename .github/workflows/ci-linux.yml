@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: "CI Linux"
+name: "CI & CD"
 
 jobs:
   build-linux:
@@ -79,3 +79,100 @@ jobs:
         run: |
           cd test_dir
           ../swamp_rose_updater
+
+  build-macos:
+    name: "build-macos"
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Install protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup git config to apply patch
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "<>"
+
+      - name: Build updater
+        run: make macos_updater
+
+      - name: Upload .app artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: swamp_rose_updater.app
+          path: build/output/macos/swamp_rose_updater.app/
+
+      - name: Create dmg
+        run: |
+          git clone https://github.com/create-dmg/create-dmg.git
+          ./create-dmg/create-dmg swamp_rose_updater.dmg build/output/macos/swamp_rose_updater.app
+
+      - name: Upload .dmg artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: swamp_rose_updater.dmg
+          path: swamp_rose_updater.dmg
+
+  test-macos:
+    name: "test-macos"
+    needs:
+      - build-macos
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download .app build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: swamp_rose_updater.app
+          path: swamp_rose_updater.app/
+
+      - name: Print folder structure
+        run: ls -R
+
+      - name: Test updater command
+        run: |
+          find swamp_rose_updater.app -type f -exec chmod +x {} +
+          cd test_dir
+          ../swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap
+          cd -
+          git clean -df test_dir
+
+      - name: Test updater app
+        run: |
+          pwd
+          ls -l test_dir
+          open -a $(pwd)/swamp_rose_updater.app $(pwd)/test_dir --stdout outfile --stderr errfile
+          sleep 10
+          echo "Slept for a while, checking for outputs"
+          ls -l test_dir
+          cat outfile
+          cat errfile
+
+  release:
+    name: "release"
+    needs:
+      - test-macos
+      - test-linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+      - name: Inspect directory after downloading artifacts
+        run: ls -alFR
+      - name: Create release and upload artifacts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          wget -q https://github.com/TheAssassin/pyuploadtool/releases/download/continuous/pyuploadtool-x86_64.AppImage
+          chmod +x pyuploadtool-x86_64.AppImage
+          ./pyuploadtool-x86_64.AppImage swamp_rose_updater/swamp_rose_updater swamp_rose_updater.dmg/swamp_rose_updater.dmg
