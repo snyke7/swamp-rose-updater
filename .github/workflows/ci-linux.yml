@@ -6,17 +6,13 @@ jobs:
   build-linux:
     name: "build-linux"
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        rust:
-          - stable
 
     steps:
       - uses: actions/checkout@v3
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
+          toolchain: stable
           override: true
 
       - name: Install protoc

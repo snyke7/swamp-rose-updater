@@ -6,17 +6,13 @@ jobs:
   build-macos:
     name: "build-macos"
     runs-on: macos-latest
-    strategy:
-      matrix:
-        rust:
-          - stable
 
     steps:
       - uses: actions/checkout@v3
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
+          toolchain: stable
           override: true
 
       - name: Install protoc
@@ -80,6 +76,7 @@ jobs:
           ls -l test_dir
           open -a $(pwd)/swamp_rose_updater.app $(pwd)/test_dir --stdout outfile --stderr errfile
           sleep 10
+          echo "Slept for a while, checking for outputs"
+          ls -l test_dir
           cat outfile
           cat errfile
-          ls -l test_dir
