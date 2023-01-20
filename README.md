@@ -1,6 +1,27 @@
 # swamp-rose-updater
 
-Custom updater for ROSE Online that works on Linux.
+Custom updater for ROSE Online that works on Linux & MacOS.
+
+## Installing ROSE on Linux with Lutris.
+
+Install [Lutris](https://lutris.net/downloads), then simply [click here](lutris:rose-online-swamp-rose-installer).
+This will launch the installer, install ROSE and update it.
+When new patches arrive: Open Lutris > Right-click ROSE Online > execute script.
+This will start updating your ROSE in the background, please wait a minute before launching the game.
+
+If you are wondering how this works: Lutris can follow installation procedures defined in YAML files.
+The link above will execute the procedure defined [here](https://github.com/snyke7/swamp-rose-updater/blob/main/swamp-rose-online.yaml).
+This will simply fetch the installer, run it, and download a packaged version of [this shell script](https://github.com/snyke7/swamp-rose-updater/blob/main/swamp_rose_updater), which will update your ROSE installation.
+
+## Updating ROSE on MacOS.
+
+Copy and run the following command into the Terminal:
+```
+brew tap snyke7/swamp-rose-brew https://github.com/snyke7/swamp-rose-updater && brew install --cask --no-quarantine swamp_rose_updater
+```
+This installs the updater as an application. The `--no-quarantine` part instructs your Mac to trust this app, and is necessary for the updater to function.
+
+Now, look for swamp_rose_updater in your applications. Either run it, and navigate to your ROSE folder in the folder picker, or drop your ROSE folder onto the application. This should open a Terminal which prints a bunch of text about how it is trying to update your ROSE. The final line should be 'ROSE Online is up to date'.
 
 ## Requirements
 

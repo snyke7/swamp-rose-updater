@@ -23,7 +23,7 @@ build/output/jq_macos_amd64:
 APPDIR_BASE_FILES = $(wildcard appdir_base/*)
 APPDIR_BUILD_FILES = $(patsubst appdir_base/%,build/AppDir/%, $(APPDIR_BASE_FILES))
 
-VERSION = 0.1
+VERSION = 0.2
 
 build/AppDir/%: appdir_base/%
 	@mkdir -p build/AppDir

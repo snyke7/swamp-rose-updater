@@ -1,5 +1,5 @@
 cask "swamp_rose_updater" do
-  version "0.1"
+  version "0.2"
   sha256 ""
 
   url "https://github.com/snyke7/swamp-rose-updater/releases/download/continuous/swamp_rose_updater.dmg"
