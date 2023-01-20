@@ -92,6 +92,10 @@ jobs:
           toolchain: stable
           override: true
 
+      - name: Install b2sum with brew
+        run: |
+          brew install b2sum
+
       - name: Install protoc
         uses: arduino/setup-protoc@v1
         with:

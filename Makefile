@@ -52,6 +52,9 @@ build/output/macos/swamp_rose_updater.app/Contents/Info.plist: macapp_base/swamp
 	@mkdir -p build/output/macos/
 	@osacompile -o build/output/macos/swamp_rose_updater.app $<
 
+build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/b2sum:
+	cp $(which b2sum) $@
+
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater: swamp_rose_updater
 	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
 	@cp $< $@
@@ -70,7 +73,8 @@ build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq: build/output/jq
 
 linux_updater: build/output/linux/swamp_rose_updater
 
-macos_updater: build/output/macos/swamp_rose_updater.app/Contents/Info.plist build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita
+macos_updater: build/output/macos/swamp_rose_updater.app/Contents/Info.plist build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/b2sum
+
 
 clean:
 	@echo CLEAN
