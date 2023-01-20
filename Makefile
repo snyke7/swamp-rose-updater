@@ -53,7 +53,7 @@ build/output/macos/swamp_rose_updater.app/Contents/Info.plist: macapp_base/swamp
 	@osacompile -o build/output/macos/swamp_rose_updater.app $<
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/b2sum:
-	cp $(which b2sum) $@
+	cp $$(which b2sum) $@
 
 build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater: swamp_rose_updater
 	@mkdir -p build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin
