@@ -73,7 +73,7 @@ build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq: build/output/jq
 
 linux_updater: build/output/linux/swamp_rose_updater
 
-macos_updater: build/output/macos/swamp_rose_updater.app/Contents/Info.plist build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/b2sum
+macos_updater: build/output/macos/swamp_rose_updater.app/Contents/Info.plist build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_bootstrap build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/b2sum build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/swamp_rose_updater build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/jq build/output/macos/swamp_rose_updater.app/Contents/MacOS/bin/bita
 
 
 clean:

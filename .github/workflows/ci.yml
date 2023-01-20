@@ -95,6 +95,7 @@ jobs:
       - name: Install b2sum with brew
         run: |
           brew install b2sum
+          echo "b2sum should be available at: $(which b2sum)"
 
       - name: Install protoc
         uses: arduino/setup-protoc@v1
