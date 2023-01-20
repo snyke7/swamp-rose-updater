@@ -93,8 +93,9 @@ jobs:
           override: true
 
       - name: Install b2sum with brew
+        # there is also the b2sum brew, which does not implement the -c option that we need T_T
         run: |
-          brew install b2sum
+          brew install coreutils  
           echo "b2sum should be available at: $(which b2sum)"
 
       - name: Install protoc
