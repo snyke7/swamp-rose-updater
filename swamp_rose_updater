@@ -51,6 +51,11 @@ while read -r update_line; do
    # complicating the implementation. We therefore keep it simple, and call b2sum multiple times
    if ! echo "$the_hash $(pwd)/$filename" | b2sum --check --status - ; then
       echo "Updating $filename ..."
+      filedir="$(dirname "$(pwd)/$filename")"
+      if [ ! -d "$filedir" ] ; then
+         echo "Creating possibly deleted directory $filedir"
+         mkdir -p "$filedir"
+      fi
       if bita clone --seed-output "$archive_url" "$(pwd)/$filename" ; then
          echo "Succesfully updated $filename"
          echo

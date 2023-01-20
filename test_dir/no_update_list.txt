@@ -1,4 +1,3 @@
-3ddata/control/xml/agreement.hlp
 3ddata/control/xml/arenagroup.xml
 3ddata/control/xml/currencyicon_strid.id
 3ddata/control/xml/deliverystore.xml
