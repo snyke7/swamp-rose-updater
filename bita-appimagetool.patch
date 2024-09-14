@@ -1,24 +1,26 @@
-From 4fd0fa8e54c7231ab47a1aeb82a8671a3cef7866 Mon Sep 17 00:00:00 2001
+From a41c1cf9b07e577f5be2b09590919d9eb17ebb77 Mon Sep 17 00:00:00 2001
 From: Ike Mulder <ikemulder@hotmail.com>
 Date: Sat, 7 Jan 2023 22:40:34 +0100
 Subject: [PATCH] Modify cargo.toml so appimagetool works
 
 ---
- Cargo.toml | 4 ++++
- 1 file changed, 4 insertions(+)
+ Cargo.toml | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/Cargo.toml b/Cargo.toml
-index a203de0..a667877 100644
+index f6ccc91..86273be 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -41,3 +41,7 @@ lzma-compression = ["bitar/lzma-compression"]
+@@ -51,6 +51,9 @@ lzma-compression = ["bitar/lzma-compression"]
  zstd-compression = ["bitar/zstd-compression"]
  default-tls = ["reqwest/default-tls", "bitar/default-tls"]
  rustls-tls = ["reqwest/rustls-tls", "bitar/rustls-tls"]
-+
 +[[bin]]
 +name = "bita"
 +path = "src/main.rs"
+ 
+ [dev-dependencies]
+ tempfile = "3.9.0"
 -- 
 2.25.1
 
