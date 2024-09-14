@@ -4,7 +4,7 @@ build/bita_repo:
 
 build/output/bita_linux: build/bita_repo
 	@mkdir -p build/output
-	@cd $< && cargo appimage --features=zstd-compression && mv *.AppImage ../../$@
+	@cd $< && cargo appimage --features=zstd-compression && rm -f *.AppImage && linuxdeploy --appdir target/bita.AppDir/ --output appimage && mv *.AppImage ../../$@
 
 build/output/bita_macos_amd64: build/bita_repo
 	@mkdir -p build/output
