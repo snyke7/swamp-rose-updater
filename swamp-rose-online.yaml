@@ -35,6 +35,12 @@ script:
       name: wineexec
       prefix: $GAMEDIR
       args: /SILENT /ALLUSERS /SP-
+  - task:
+      app: vcrun2022
+      arch: win64
+      description: Installing latest Visual C++ Redistributable
+      name: winetricks
+      prefix: $GAMEDIR
   - execute:
       file: $GAMEDIR/update_this_rose
   system:
