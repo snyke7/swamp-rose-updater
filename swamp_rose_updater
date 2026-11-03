@@ -14,7 +14,7 @@ fi
 
 MANIFEST_URL='https://updates.roseonlinegame.com'
 
-update_lines=$(curl --silent -L "$MANIFEST_URL"'/manifest.json' | jq -r '.files | [ .[] | [ .[] ] | [ .[0], .[1], ( .[2] | @sh ), .[3] ] ] | .[] | @sh')
+update_lines=$(curl --silent -L "$MANIFEST_URL"'/manifest.json' | jq -r '.files[] | [ .path, .source_path, (.source_hash | @sh), .source_size ] | @sh')
 
 to_hash_str () {
    the_array=("$@")
